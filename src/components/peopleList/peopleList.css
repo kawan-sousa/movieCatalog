@@ -1,0 +1,78 @@
+.peoples-section{
+    position: relative;
+    width: 100%;
+    margin-top: 2.5rem;
+    padding: 0 4.44vw;
+}
+
+.peoples-section .list-title{
+    font-size: 2.25rem;
+    font-weight: bold;
+}
+
+.rail{
+     width: 100%;
+     overflow-x: hidden;
+     margin-top: 1.5rem;
+}
+
+.peoples-section .people-list{
+    list-style-type: none;
+
+    width: 100%;
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: repeat(20, 20%);
+    column-gap: 6.66%;
+    transition: 1s margin-left;
+}
+
+.peoples-section .controller{
+    position: absolute;
+
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    width: 100%;
+}
+
+.peoples-section .controller .backwards, .peoples-section .controller .forwards{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+.peoples-section .controller .backwards{
+    transform: rotate(180deg);
+}
+
+.peoples-section .controller .backwards img, .peoples-section .controller .forwards img{
+    height: 2rem;
+}
+
+.people-list .people-link{
+    color: var(--neutral-color-2)
+}
+
+.people-list .people{
+    width: 17.36vw;
+    cursor: pointer;
+    z-index: 1;
+}
+
+.people-list .people .profile{
+    width: 17.36vw
+}
+
+.peoples-section .people-name{
+    font-size: 1.12rem;
+    font-weight: bold;    
+}

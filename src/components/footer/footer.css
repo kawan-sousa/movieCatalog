@@ -1,0 +1,32 @@
+.main-footer{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    gap: 1.5rem;
+    
+    margin-top: 5rem;
+    padding-bottom: 3rem;
+}
+
+.main-footer .contact-options a:not(:last-of-type){
+    margin-right: 2rem;
+}
+
+.main-footer .contact-options a i{
+    font-size: 1.5rem;
+    color: var(--neutral-color-3);
+}
+
+.main-footer .terms-and-conditions a{
+    color: var(--neutral-color-3);
+    font-weight: bold;
+    font-size: 1rem;
+}
+.main-footer .terms-and-conditions a:not(:last-of-type){
+    margin-right: 2rem
+}
+
+.main-footer .authors a{
+    color: var(--neutral-color-3_5);
+    font-weight: bold;
+}

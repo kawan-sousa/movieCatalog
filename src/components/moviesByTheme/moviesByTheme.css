@@ -1,0 +1,105 @@
+.movies-by-theme{
+    position: relative;
+    width: 100%;
+    margin-top: 2.5rem;
+    padding: 0 4.44vw;
+}
+
+.movies-by-theme .theme{
+    font-size: 2.25rem;
+    font-weight: bold;
+}
+
+.movies-by-theme .controller{
+    position: absolute;
+
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    width: 100%;
+}
+
+.movies-by-theme .controller .backwards, .movies-by-theme .controller .forwards{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+.movies-by-theme .controller .backwards{
+    transform: rotate(180deg);
+}
+
+.movies-by-theme .controller .backwards img, .movies-by-theme .controller .forwards img{
+    height: 2rem;
+}
+
+.rail{
+     width: 100%;
+     overflow-x: hidden;
+     margin-top: 1.5rem;
+}
+.movies-by-theme .movie-list{
+    list-style-type: none;
+
+    width: 100%;
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: repeat(20, 20%);
+    column-gap: 6.66%;
+    transition: 1s margin-left;
+}
+
+.movie-link{
+    color: var(--neutral-color-2)
+}
+
+.movie-list .movie{
+    cursor: pointer;
+    z-index: 1;
+}
+
+.movie-list .cover-wppr{
+    display: block;
+    width: 100%;
+}
+
+.movie-list .movie .cover{
+    width: 100%;
+    height: auto
+}
+
+.movies-by-theme .release-date{
+    font-size: .75rem;
+    font-weight: 900;
+    color: var(--neutral-color-3_4)
+}
+
+.movies-by-theme .movie-title{
+    font-size: 1.12rem;
+    font-weight: bold;
+}
+
+.movies-by-theme .reviews{
+    width: 100%;
+}
+
+.reviews .IMDb-review .IMDb-icon{
+    height: 1.2rem
+}
+
+.reviews .IMDb-review .IMDb-result{
+    font-size: 1rem;
+}
+
+.movies-by-theme .generes{
+    font-size: 1rem;
+    color: var(--neutral-color-3_4);
+}
