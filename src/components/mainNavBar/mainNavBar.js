@@ -11,7 +11,7 @@ export default ()=>{
             <span class="logo-name">Movie Box</span>
         </a>
 
-        <form action="/" class="search-bar">
+        <form action="/" name="keyword" class="search-bar">
             <input type="text" name="search" id="search-bar-inpt" class="search-bar-inpt" placeholder="o que você quer assistir?">
             <label for="search-bar-inpt" class="search-label"><i class="fa-solid fa-magnifying-glass"></i></label>
             <button class="search-request-btn hidden"><i class="fa-solid fa-magnifying-glass"></i></button>
@@ -44,7 +44,7 @@ export default ()=>{
                 if(value){
                     $searchLabel.classList.add('hidden')
                     $searchBtn.classList.remove('hidden')
-                    $searchform.action = `${URL_domain}.online/search?name=${value}`
+                    $searchform.action = `${URL_domain}.online/src/pages/search/search?name=${value}`
                 }
                 else{
                     $searchLabel.classList.remove('hidden')
