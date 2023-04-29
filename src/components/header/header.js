@@ -1,12 +1,13 @@
-export default (backdroPath, title, review, overview)=>{
+export default (movieList, IMAGE_URL)=>{
     const $header = document.createElement('header')
+    const { title, vote_average, overview, backdrop_path, id} = movieList
 
     $header.classList.add('main-header')
 
     $header.innerHTML += `
         <div class="carousel-banner">
             <picture class="banner-image-wppr">
-                <img src="https://image.tmdb.org/t/p/w1280/9n2tJBplPbgR2ca05hS5CKXwP2c.jpg" alt="${title}" srcset="" class="banner-image">
+                <img src="${IMAGE_URL+backdrop_path}" alt="${title}" srcset="" class="banner-image">
             </picture>
 
             <div class="text-about">
@@ -15,7 +16,7 @@ export default (backdroPath, title, review, overview)=>{
                 <div class="reviews">
                     <div class="IMDb-review">
                         <i class="IMDb-icon"><img src="./src/images/icons/TMDb.svg" alt="TMDb logo"></i>
-                        <span class="IMDb-result"><span class="real-result">${review}</span> / 100</span>
+                        <span class="IMDb-result"><span class="real-result">${vote_average}</span> / 100</span>
                     </div>
                 </div>
 
@@ -25,7 +26,7 @@ export default (backdroPath, title, review, overview)=>{
                     </p>
                 </div>
 
-                <a href="https://${window.location.host}/movie.html" class="trailer-btn">
+                <a href="https://${window.location.host}/movie?id=${id}" class="trailer-btn">
                     <i class="fa-solid fa-circle-play"></i>
                     <span class="button-text-content">ver mais</span>
                 </a>

@@ -8,9 +8,7 @@ export default async (peopleList, listTitle, IMAGE_URL_P)=>{
     $moviesByTheme.innerHTML= `
     <h3 class="list-title">${listTitle}</h3>
     
-    
-    <div class="rail">
-        <ul class="people-list">
+    <div class="rail-wppr">
         <div class="controller">
             <button class="backwards">
                 <img src="src/images/icons/arrowRight.svg" alt="">
@@ -19,26 +17,28 @@ export default async (peopleList, listTitle, IMAGE_URL_P)=>{
                 <img src="src/images/icons/arrowRight.svg" alt="">
             </button>
         </div>
-        ${
+        <div class="rail">
+            <ul class="people-list">
+            ${
                 newPeopleList.map((people)=>{
                     const { profile_path, name} = people
 
-
                     const HTMLContent = `
-                    <a href="#" class="people-link">
-                        <li class="people">
-                        <picture class="profile-wppr">
-                                    <img src="${IMAGE_URL_P+profile_path}" alt="" srcset="" class="profile">
-                                </picture>
-                    
-                                <h4 class="people-name">${name}</h4>
-                        </li>
-                    </a>`
+                    <li class="people">
+                        <a href="#" class="people-link">
+                            <picture class="profile-wppr">
+                                        <img src="${IMAGE_URL_P+profile_path}" alt="" srcset="" class="profile">
+                            </picture>
+                        </a>
+                        
+                        <h4 class="people-name">${name}</h4>
+                    </li>`
                     
                     return HTMLContent
                 }).join('')
             }
-        </ul>
+            </ul>
+        </div>
     </div>`
 
     setInteractivity()
@@ -47,35 +47,62 @@ export default async (peopleList, listTitle, IMAGE_URL_P)=>{
 
     function setInteractivity(){
         const $controlBtnLst = $moviesByTheme.querySelectorAll('.controller button')
+        const railWppr = $controlBtnLst[0].closest('.rail-wppr')
+        const $rail = railWppr.querySelector('.rail')
+        const $peopleList = $rail.querySelector('.people-list')
         let currentMarginLeft = 0;
 
         $controlBtnLst.forEach(button =>{
             
             button.addEventListener('click', e =>{
-                const $rail = button.closest('.rail')
-                const $peopleList = $rail.querySelector('.people-list')
+
                 const peopleListW = $peopleList.offsetWidth
                 const columnGapPercentage = Number(window.getComputedStyle($peopleList).getPropertyValue('column-gap').replace('%', ''))
                 const columnGap = (peopleListW / 100) * columnGapPercentage
+                const marginError = 10
+                const peopleW = $peopleList.querySelector('.people').offsetWidth
 
                 if(button.classList.contains('forwards')){
+                    const scrollRight = $rail.scrollWidth - $rail.clientWidth
                     let newMarginLeft = currentMarginLeft - peopleListW - columnGap
-                    const scrollRight = $rail.scrollWidth - peopleListW
 
-                    if(scrollRight < peopleListW) newMarginLeft = 0
+
+                    if(scrollRight <= peopleW * 3 + columnGap * 3 + marginError && scrollRight >= peopleW * 3 + columnGap * 3 - marginError){
+                        newMarginLeft = currentMarginLeft - scrollRight
+                    }
+                    else if(scrollRight <= peopleW * 2 + columnGap * 2 + marginError && scrollRight >= peopleW * 2 + columnGap * 2 - marginError){
+                        newMarginLeft = currentMarginLeft - (peopleW * 2 + columnGap * 2)
+                    }
+                    else if(scrollRight <= peopleW + columnGap + marginError && scrollRight >= peopleW + columnGap - marginError){
+                        newMarginLeft = currentMarginLeft - scrollRight
+                    }
+                    else if(scrollRight < $rail.offsetWidth){
+                        newMarginLeft = 0
+                    }
+
+
                     $peopleList.style.marginLeft = `${newMarginLeft}px`
-
                     currentMarginLeft = newMarginLeft
                 }
                 else{
-                        let newMarginLeft = currentMarginLeft + peopleListW + columnGap
-    
-                        if(newMarginLeft > 0) newMarginLeft = -($rail.scrollWidth - peopleListW)
-                        $peopleList.style.marginLeft = `${newMarginLeft}px`
-    
-                        currentMarginLeft = newMarginLeft
+                    const scrollLeft = -1 * currentMarginLeft
+                    let newMarginLeft = currentMarginLeft + peopleListW + columnGap
+
+                    if(scrollLeft >= peopleW + columnGap - marginError && scrollLeft <= peopleW + columnGap + marginError)newMarginLeft = 0
+                    else if(scrollLeft >= peopleW * 2 + columnGap * 2 - marginError && scrollLeft <= peopleW * 2 + columnGap * 2 + marginError)newMarginLeft = 0
+                    else if(scrollLeft >= peopleW * 3 + columnGap * 3 - marginError && scrollLeft <= peopleW * 3 + columnGap * 3 + marginError)newMarginLeft = 0
+                    else if(newMarginLeft >= marginError) newMarginLeft = -($peopleList.scrollWidth - $peopleList.offsetWidth)
+                    
+                    
+                    $peopleList.style.marginLeft = `${newMarginLeft}px`
+                    currentMarginLeft = newMarginLeft
                 }
             })
+        })
+        
+        window.addEventListener('resize', ()=>{
+            $peopleList.style.marginLeft = `0px`
+            currentMarginLeft = 0
         })
     }
 }

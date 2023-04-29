@@ -8,50 +8,53 @@ export default async (movieList, theme, IMAGE_URL_P)=>{
     $moviesByTheme.innerHTML= `
     <h3 class="theme">${theme}</h3>
     
-    
-    <div class="rail">
-        <ul class="movie-list">
-            <div class="controller">
-                <button class="backwards">
-                    <img src="src/images/icons/arrowRight.svg" alt="">
-                </button>
-                <button class="forwards">
-                    <img src="src/images/icons/arrowRight.svg" alt="">
-                </button>
-            </div>
-            ${
-                await Promise.all(newMovieList.map(async movie =>{
-                    const { poster_path, release_date, title, vote_average, id} = movie
+    <div class="rail-wppr">
+        <div class="controller">
+            <button class="backwards">
+                <img src="src/images/icons/arrowRight.svg" alt="">
+            </button>
+            <button class="forwards">
+                <img src="src/images/icons/arrowRight.svg" alt="">
+            </button>
+        </div>
+        <div class="rail">
+            <ul class="movie-list">
+                ${
+                    await Promise.all(newMovieList.map(async movie =>{
+                        const { poster_path, release_date, title, vote_average, id} = movie
 
-                    const genreNames = await getGenres(id)
+                        const genreNames = await getGenres(id)
 
-                    const HTMLContent = `
-                    <a href="#" class="movie-link">
+                        const HTMLContent = `
                         <li class="movie">
-                        <picture class="cover-wppr">
-                                <img src="${IMAGE_URL_P+poster_path}" alt="" srcset="" class="cover">
+                        <a href="#" class="movie-link">
+                            <picture class="cover-wppr">
+                                        <img src="${IMAGE_URL_P+poster_path}" alt="" srcset="" class="cover">
                             </picture>
-                
-                            <div class="release-date">${release_date}</div>
-                
-                            <h4 class="movie-title">${title}</h4>
-        
-                            <div class="reviews">
-                                <div class="IMDb-review">
-                                    <i class="IMDb-icon"><img src="./src/images/icons/TMDb.svg" alt="TMDb logo"></i>
-                                    <span class="IMDb-result"><span class="real-result">${vote_average}</span> / 100</span>
-                                </div>
-                            </div>
-                            
-                            <span class="generes">${genreNames.join(', ')
-                            }</span>
-                        </li>
-                    </a>`
+                        </a>
+
+                        <span class="movie-datas">
+                                <div class="release-date">${release_date}</div>
                     
-                    return HTMLContent
-                })).then(newMovieList => newMovieList.join(''))
-            }
-        </ul>
+                                <h4 class="movie-title">${title}</h4>
+            
+                                <div class="reviews">
+                                    <div class="IMDb-review">
+                                        <i class="IMDb-icon"><img src="./src/images/icons/TMDb.svg" alt="TMDb logo"></i>
+                                        <span class="IMDb-result"><span class="real-result">${vote_average}</span> / 100</span>
+                                    </div>
+                                </div>
+                                
+                                <span class="generes">${genreNames.join(', ')
+                                }</span>
+                        </span>
+                            </li>`
+                        
+                        return HTMLContent
+                    })).then(newMovieList => newMovieList.join(''))
+                }
+            </ul>
+        </div>
     </div>`
 
     setMovieLstInteractivity()
@@ -68,35 +71,62 @@ export default async (movieList, theme, IMAGE_URL_P)=>{
     
     function setMovieLstInteractivity(){
         const controlBtnLst = $moviesByTheme.querySelectorAll('.controller button')
+        const railWppr = controlBtnLst[0].closest('.rail-wppr')
+        const rail = railWppr.querySelector('.rail')
+        const movieList = rail.querySelector('.movie-list')
         let currentMarginLeft = 0;
         
         controlBtnLst.forEach(button => {
             
             button.addEventListener('click', (e)=> {
-                const rail = button.closest('.rail')
-                const movieList = rail.querySelector('.movie-list')
+
                 const movieListW = movieList.offsetWidth
                 const columnGapPercentage = Number(window.getComputedStyle(movieList).getPropertyValue('column-gap').replace('%', ''))
                 const columnGap = (movieListW / 100) * columnGapPercentage
+                const marginError = 10
+                const movieW = movieList.querySelector('.movie').offsetWidth
 
                 if(button.classList.contains('forwards')){
-                    let newMarginLft = currentMarginLeft - movieListW - columnGap
                     const scrollRight = rail.scrollWidth - rail.clientWidth;
+                    let newMarginLft = currentMarginLeft - movieListW - columnGap
 
-                    if(scrollRight < rail.offsetWidth) newMarginLft = 0
+                    if(scrollRight <= movieW * 3 + columnGap * 3 + marginError && scrollRight >= movieW * 3 + columnGap * 3 - marginError){
+                        newMarginLft = currentMarginLeft - scrollRight
+                    }
+                    else if(scrollRight <= movieW * 2 + columnGap * 2 + marginError && scrollRight >= movieW * 2 + columnGap * 2 - marginError){
+                        newMarginLft = currentMarginLeft - scrollRight
+                    }
+                    else if(scrollRight <= movieW + columnGap + marginError && scrollRight >= movieW + columnGap - marginError){
+                        newMarginLft = currentMarginLeft - scrollRight
+                    }
+                    else if(scrollRight < rail.offsetWidth){
+                        newMarginLft = 0
+                    }
 
                     movieList.style.marginLeft = `${newMarginLft}px`
                     currentMarginLeft = newMarginLft
                 }
                 else if(button.classList.contains('backwards')){
+                    const scrollLeft = -1 * currentMarginLeft
                     let newMarginLft = currentMarginLeft + movieListW + columnGap
 
-                    if(newMarginLft >= 0) newMarginLft = -(movieList.scrollWidth - movieListW)
 
+                    if(scrollLeft >= movieW + columnGap - marginError && scrollLeft <= movieW + columnGap + marginError)newMarginLft = 0
+                    else if(scrollLeft >= movieW * 2 + columnGap * 2 - marginError && scrollLeft <= movieW * 2 + columnGap * 2 + marginError)newMarginLft = 0
+                    else if(scrollLeft >= movieW * 3 + columnGap * 3 - marginError && scrollLeft <= movieW * 3 + columnGap * 3 + marginError)newMarginLft = 0
+                    else if(newMarginLft >= marginError) newMarginLft = -(movieList.scrollWidth - movieList.offsetWidth)
+                    
+                    
                     movieList.style.marginLeft = `${newMarginLft}px`
                     currentMarginLeft = newMarginLft
                 }
             })
+
+
+        })
+        window.addEventListener('resize', e=>{
+            movieList.style.marginLeft = `0px`
+            currentMarginLeft = 0
         })
     }
     

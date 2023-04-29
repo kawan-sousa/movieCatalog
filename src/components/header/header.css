@@ -142,3 +142,17 @@
     background-color: var(--neutral-color-1);
     border-radius: 6px;
 }
+
+@media (max-width: 900px){
+    .main-header .text-about .title{
+        font-size: 2.5rem;
+    }
+}
+
+@media (max-width: 515px) {
+    .main-header .text-about .title{
+        font-size: 2.3rem;
+        width: 100%;
+    }
+    
+}

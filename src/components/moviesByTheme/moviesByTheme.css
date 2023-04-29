@@ -41,11 +41,14 @@
     height: 2rem;
 }
 
-.rail{
-     width: 100%;
-     overflow-x: hidden;
-     margin-top: 1.5rem;
+.movies-by-theme .rail{
+    position: relative;
+    overflow-x: hidden;
+    width: 100%;
+    margin-top: 1.5rem;
+    z-index: 100;
 }
+
 .movies-by-theme .movie-list{
     list-style-type: none;
 
@@ -54,26 +57,25 @@
     grid-auto-flow: column;
     grid-template-columns: repeat(20, 20%);
     column-gap: 6.66%;
-    transition: 1s margin-left;
+    transition: margin-left 1s ;
 }
 
-.movie-link{
-    color: var(--neutral-color-2)
+.movies-by-theme .movie-link{
+    color: var(--neutral-color-2);
 }
 
-.movie-list .movie{
+.movies-by-theme .movie-list .movie{
     cursor: pointer;
-    z-index: 1;
 }
 
-.movie-list .cover-wppr{
+.movies-by-theme .movie-list .cover-wppr{
     display: block;
     width: 100%;
 }
 
-.movie-list .movie .cover{
+.movies-by-theme .movie-list .movie .cover{
     width: 100%;
-    height: auto
+    height: auto;
 }
 
 .movies-by-theme .release-date{
@@ -91,7 +93,7 @@
     width: 100%;
 }
 
-.reviews .IMDb-review .IMDb-icon{
+.movies-by-theme .reviews .IMDb-review .IMDb-icon{
     height: 1.2rem
 }
 
@@ -102,4 +104,79 @@
 .movies-by-theme .generes{
     font-size: 1rem;
     color: var(--neutral-color-3_4);
+}
+
+@media (max-width: 900px){
+
+    .movies-by-theme .theme{
+        font-size: 2rem;
+    }
+
+    .movies-by-theme .movie-list{
+        grid-template-columns: repeat(20, 30%);
+        column-gap: 5%
+    }
+}
+
+@media (max-width: 656px){
+    .movies-by-theme .rail-wppr{
+        position: relative;
+    }
+
+    .movies-by-theme .controller{
+        z-index: 100;
+    }
+
+    .movies-by-theme .controller .backwards{
+        margin-left: -2rem;
+    }
+
+    .movies-by-theme .controller .forwards{
+        margin-right: -2rem;
+    }
+
+    .movies-by-theme .movie-list .movie .movie-datas{
+        display: none;
+    }
+}
+
+@media (max-width: 515px){
+    .movies-by-theme .controller .backwards img, .movies-by-theme .controller .forwards img{
+        height: 1.5rem;
+    }
+
+    .movies-by-theme .controller .backwards{
+        margin-left: -1.5rem;
+    }
+
+    .movies-by-theme .controller .forwards{
+        margin-right: -1.5rem;
+    }
+}
+
+@media (max-width: 370px){
+    .movies-by-theme{
+        padding: 0;
+    }
+
+    .movies-by-theme .rail{
+        overflow-x: scroll;
+    }
+    /* hidden only the scroll bar */
+    .movies-by-theme .rail{
+        -ms-overflow-style: none;  /* Internet Explorer 10+ */
+        scrollbar-width: none;  /* Firefox */
+    }
+    .movies-by-theme .rail::-webkit-scrollbar { 
+        display: none;  /* Safari and Chrome */
+    }
+
+    .movies-by-theme .movie-list{
+        grid-template-columns: repeat(20, 26%);
+        column-gap: 2%;
+    }
+    
+    .movies-by-theme .controller{
+        display: none;
+    }
 }

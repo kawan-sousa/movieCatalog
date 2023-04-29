@@ -10,12 +10,13 @@
     font-weight: bold;
 }
 
-.rail{
-     width: 100%;
-     overflow-x: hidden;
-     margin-top: 1.5rem;
+.peoples-section .rail{
+    overflow-x: hidden;
+    width: 100%;
+    margin-top: 1.5rem;
+    overflow-x: hidden;
 }
-
+    
 .peoples-section .people-list{
     list-style-type: none;
 
@@ -58,21 +59,107 @@
     height: 2rem;
 }
 
-.people-list .people-link{
+.peoples-section .people-list .people-link{
     color: var(--neutral-color-2)
 }
 
-.people-list .people{
-    width: 17.36vw;
+
+.peoples-section .people-list .people{
     cursor: pointer;
-    z-index: 1;
+}
+.peoples-section .people-list .people .profile-wppr{
+    display: block;
+    width: 100%;
 }
 
-.people-list .people .profile{
-    width: 17.36vw
+.peoples-section .people-list .people .profile{
+    width: 100%;
+    height: auto;
 }
 
 .peoples-section .people-name{
     font-size: 1.12rem;
     font-weight: bold;    
+}
+
+@media (max-width: 900px){
+    .peoples-section .main-header .text-about .title{
+        font-size: 2.5rem;
+    }
+
+    .peoples-section .theme{
+        font-size: 2rem;
+    }
+
+    .peoples-section .people-list{
+        grid-template-columns: repeat(20, 30%);
+        column-gap: 5%
+    }
+}
+
+@media (max-width: 656px){
+    .peoples-section .rail-wppr{
+        position: relative;
+    }
+
+    .peoples-section .controller{
+        z-index: 100;
+    }
+
+    .peoples-section .controller .backwards{
+        margin-left: -2rem;
+    }
+
+    .peoples-section .controller .forwards{
+        margin-right: -2rem;
+    }
+}
+
+@media (max-width: 515px){
+    .peoples-section .controller .backwards img, .peoples-section .controller .forwards img{
+        height: 1.5rem;
+    }
+
+    .peoples-section .controller .backwards{
+        margin-left: -1.5rem;
+    }
+
+    .peoples-section .controller .forwards{
+        margin-right: -1.5rem;
+    }
+}
+
+@media (max-width: 370px){
+    .peoples-section{
+        padding: 0;
+    }
+
+    .peoples-section .rail{
+        overflow-x: scroll;
+    }
+    /* hidden only the scroll bar */
+    .peoples-section .rail{
+        -ms-overflow-style: none;  /* Internet Explorer 10+ */
+        scrollbar-width: none;  /* Firefox */
+    }
+    .peoples-section .rail::-webkit-scrollbar {
+        display: none;  /* Safari and Chrome */
+    }
+        
+
+    .peoples-section .people-list{
+        grid-template-columns: repeat(20, 26%);
+        column-gap: 2%;
+    }
+
+    .peoples-section .people-name{
+        font-size: 1rem;
+        text-align: center
+    }
+
+    .peoples-section .controller{
+        display: none;
+    }
+
+    
 }

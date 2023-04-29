@@ -11,9 +11,10 @@ export default ()=>{
             <span class="logo-name">Movie Box</span>
         </a>
 
-        <form action="./search.html" class="search-bar">
-            <input type="text" name="search-bar" id="" class="search-bar-inpt" placeholder="o que você quer assistir?">
-            <button class="search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+        <form action="/" class="search-bar">
+            <input type="text" name="search" id="search-bar-inpt" class="search-bar-inpt" placeholder="o que você quer assistir?">
+            <label for="search-bar-inpt" class="search-label"><i class="fa-solid fa-magnifying-glass"></i></label>
+            <button class="search-request-btn hidden"><i class="fa-solid fa-magnifying-glass"></i></button>
         </form>
 
         <div class="right-btns">
@@ -28,5 +29,38 @@ export default ()=>{
             </nav>
         <div>`
 
+        setInteractivity()
+
+        function setInteractivity(){
+            const $searchform = nav.querySelector(".search-bar")
+            const $searchIpt = nav.querySelector(".search-bar-inpt")
+            const $searchLabel = nav.querySelector(".search-label")
+            const $searchBtn = nav.querySelector(".search-request-btn")
+            const URL_domain = window.location.host
+            const URL_protocol = window.location.protocol
+
+            $searchIpt.addEventListener('input', (e)=>{
+                const { value } = e.target
+                if(value){
+                    $searchLabel.classList.add('hidden')
+                    $searchBtn.classList.remove('hidden')
+                    $searchform.action = `${URL_domain}.online/search?name=${value}`
+                }
+                else{
+                    $searchLabel.classList.remove('hidden')
+                    $searchBtn.classList.add('hidden')
+                }
+            })
+
+            // to mobile
+            if(window.matchMedia("(max-width: 585px)").matches){
+                const $searchBar = nav.querySelector(".search-bar")
+                const $searchBtn = nav.querySelector(".search-bar .search-btn")
+                
+                $searchBtn.addEventListener('click', ()=>{
+                    $searchBar.classList.add('active')
+                })
+            }
+        }
         return nav
 }

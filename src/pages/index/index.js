@@ -38,11 +38,11 @@ $body.appendChild(mainNavBar())
 async function setHeader(movieList){
     
     
-    const { title, vote_average, overview, backdrop_path} = movieList[0]
+    
     
     if(!movieList.length) return
     
-    await $body.appendChild(header(IMAGE_URL+backdrop_path, title, vote_average, overview))
+    await $body.appendChild(header(movieList[0], IMAGE_URL))
     
     setHeaderInteractivity(movieList)
 }
