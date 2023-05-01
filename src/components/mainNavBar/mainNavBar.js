@@ -11,8 +11,8 @@ export default ()=>{
             <span class="logo-name">Movie Box</span>
         </a>
 
-        <form action="/" name="keyword" class="search-bar">
-            <input type="text" name="search" id="search-bar-inpt" class="search-bar-inpt" placeholder="o que você quer assistir?">
+        <form action="/" class="search-bar">
+            <input type="text" name="query" id="search-bar-inpt" class="search-bar-inpt" placeholder="o que você quer assistir?">
             <label for="search-bar-inpt" class="search-label"><i class="fa-solid fa-magnifying-glass"></i></label>
             <button class="search-request-btn hidden"><i class="fa-solid fa-magnifying-glass"></i></button>
         </form>
@@ -33,18 +33,40 @@ export default ()=>{
 
         function setInteractivity(){
             const $searchform = nav.querySelector(".search-bar")
+            const $searchBar = nav.querySelector(".search-bar")
             const $searchIpt = nav.querySelector(".search-bar-inpt")
             const $searchLabel = nav.querySelector(".search-label")
             const $searchBtn = nav.querySelector(".search-request-btn")
-            const URL_domain = window.location.host
-            const URL_protocol = window.location.protocol
+            const smallViewport = 595
+            const isSmallViewport = ()=>{
+                return window.innerWidth <= smallViewport
+            }
+            const mobileFunctionality = {
+                add: ()=>{
+                    hasMinViewFunc = true
+                    
+                    $searchLabel.addEventListener('click', onClickSearchLbl)
 
+                    // on click outside the form, removes the full view of the form and show only the icon
+                    window.addEventListener('click', onClickOutsideSearchBar)
+                },
+
+                remove: ()=>{
+                    hasMinViewFunc = false
+                    
+                    $searchLabel.removeEventListener('click', onClickSearchLbl)
+
+                    window.removeEventListener('click', onClickOutsideSearchBar)
+                }
+            }
+            let hasMinViewFunc = false
+            
             $searchIpt.addEventListener('input', (e)=>{
                 const { value } = e.target
                 if(value){
                     $searchLabel.classList.add('hidden')
                     $searchBtn.classList.remove('hidden')
-                    $searchform.action = `${URL_domain}.online/src/pages/search/search?name=${value}`
+                    $searchform.action = `/src/pages/results/results.html?${$searchIpt.value}`
                 }
                 else{
                     $searchLabel.classList.remove('hidden')
@@ -52,15 +74,38 @@ export default ()=>{
                 }
             })
 
-            // to mobile
-            if(window.matchMedia("(max-width: 585px)").matches){
-                const $searchBar = nav.querySelector(".search-bar")
-                const $searchBtn = nav.querySelector(".search-bar .search-btn")
-                
-                $searchBtn.addEventListener('click', ()=>{
-                    $searchBar.classList.add('active')
-                })
+            $searchform.addEventListener('submit', e=>{
+                if(!$searchIpt.value) e.preventDefault()
+            })
+
+            // nav bar to small viewport
+            if(isSmallViewport() && !hasMinViewFunc) mobileFunctionality.add()
+
+            window.addEventListener('resize', ()=>{
+
+                if(isSmallViewport() && !hasMinViewFunc) mobileFunctionality.add()
+
+                else if(!isSmallViewport() && hasMinViewFunc) mobileFunctionality.remove()
+            })
+
+            function onClickSearchLbl(){
+                $searchBar.classList.add('active')
+                    
+                if($searchIpt.value){
+                    $searchBtn.classList.remove('hidden')
+                    $searchLabel.classList.add('hidden')
+                }
             }
+
+            function onClickOutsideSearchBar(e){
+                if(!e.target.closest('.search-bar')){
+                    $searchBar.classList.remove('active')
+
+                    $searchBtn.classList.add('hidden')
+                    $searchLabel.classList.remove('hidden')
+                }
+            }
+            
         }
         return nav
 }
