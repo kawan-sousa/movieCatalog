@@ -21,10 +21,15 @@
     display: flex;
     align-items: center;
 }
+.main-nav-bar .logo-link i{
+    display: block;
+    width: 2rem;
+    margin-right: 1.5rem;
+}
 
 .main-nav-bar .logo-link .logo-img{
-    width: 3rem;
-    margin-right: 1.5rem;
+    display: block;
+    width: 100%;
 }
 
 .main-nav-bar .logo-link .logo-name{
@@ -136,5 +141,86 @@
     }
     .main-nav-bar .search-bar{
         width: 40vw;
+    }
+}
+
+@media (max-width: 595px){
+    .main-nav-bar .search-bar.active{
+        position: absolute;
+        top: 0;
+        left: 0;
+        border-radius: 0;
+        /* background-color: var(--neutral-color-2); */
+        width: 100%;
+        border: none;
+        padding: 1rem .5rem 0 .5rem;
+        z-index: 100;
+    }
+    
+    .main-nav-bar .search-bar .search-bar-inpt{
+        display: none;
+    }
+
+    .main-nav-bar .search-bar.active .search-bar-inpt{
+        display: initial;
+        background-color: var(--neutral-color-1);
+        color: var(--neutral-color-2);
+
+        border-width: 2px 0 2px 2px;
+        border-color: var(--color-1);
+        border-style: solid;
+        
+        border-radius: .8rem 0 0 .8rem;
+    }
+
+    .main-nav-bar .search-bar .search-request-btn{
+        background-color: var(--neutral-color-1);
+        color: var(--neutral-color-2);
+
+        border-width: 2px 2px 2px 0;
+        border-color: var(--color-1);
+        border-style: solid;
+        
+        border-radius:  0 .8rem .8rem 0;
+    }
+    
+    .main-nav-bar .search-bar .search-request-btn{
+        padding: .5rem;
+    }
+
+    .main-nav-bar .search-bar.active .search-request-btn i{
+        color: var(--neutral-color-2);
+    }
+    
+    .main-nav-bar .search-bar .search-label{
+        padding: .5rem;
+    }
+
+    .main-nav-bar .search-bar.active .search-label i{
+        color: var(--neutral-color-2);
+    }
+    
+    .main-nav-bar .search-bar.active .search-label{
+        background-color: var(--neutral-color-1);
+        color: var(--neutral-color-2);
+
+        border-width: 2px 2px 2px 0;
+        border-color: var(--color-1);
+        border-style: solid;
+        
+        border-radius:  0 .8rem .8rem 0;
+    }
+
+    .main-nav-bar .search-bar{
+        width: initial;
+        border: none;
+    }
+
+
+}
+
+@media (max-width: 400px){
+    .main-nav-bar .logo-link .logo-name{
+        display: none;
     }
 }
