@@ -26,7 +26,7 @@
     width: 100%;
     height: 100%;
 }
-.banner-image-wppr::after{
+.carousel-banner .banner-image-wppr::after{
     content: '';
 
     position: absolute;
@@ -86,7 +86,27 @@
     border-radius: 5px;
 }
 
-.trailer-btn{
+
+.main-header .synopsis-container .view-controller{
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+
+    display: none;
+    border: none;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding-left: 1rem;
+
+    color: var(--color-1);
+    line-height: 1rem;
+
+    background-color: transparent;
+    background-image: linear-gradient(to right, transparent 0%, #fff .5rem, #fff 100%);
+}
+
+.main-header .trailer-btn{
     display: flex;
     align-items: center;
     gap: .5rem;
@@ -147,12 +167,135 @@
     .main-header .text-about .title{
         font-size: 2.5rem;
     }
+    
 }
 
-@media (max-width: 515px) {
-    .main-header .text-about .title{
-        font-size: 2.3rem;
+@media (max-width: 595px){
+
+    .main-header{
+        height: auto;
+    }
+    .carousel-banner .banner-image-wppr{
+        position: relative;
+    }
+
+    .carousel-banner{
+        position: relative;
+        display: block;
+    }
+
+    .carousel-banner .banner-image-wppr .banner-image{
+        height: 50vh;
+        display: block;
+        
+    }
+
+    .main-header .text-about{
         width: 100%;
+        padding: 0;
+
+        display: flex;
+        flex-direction: column;
+        padding: 0 2vw;
+    }
+    .main-header .text-about *{
+        color: var(--neutral-color-2);
+    }
+
+    .main-header .text-about .title{
+        display: block;
+        color: var(--neutral-color-2);
+        font-size: 1.5rem;
+        text-align: center;
+        width: 100%;
+        font-weight: 500;
+        order: -2;
+    }
+
+    .main-header .synopsis-container{
+        position: relative;
+        order: -1;
+
+        margin-top: .5rem;
+
+        height: 2.rem;
+        overflow-y: hidden;
+    }
+    .main-header .synopsis-container.show-more{
+        height: auto;
+    }
+
+    .main-header .text-about .synopsis-text{
+        display: inline-block;
+        text-align: justify;
+        background-color: transparent;
+        padding: 0;
+        background-image: linear-gradient(to top, var(--neutral-color-1) 0%, transparent .7rem, transparent 100%);
+    }
+    
+    .main-header .synopsis-container .view-controller{
+        display: initial;
+    }
+
+    .reviews{
+        text-align: left;
+        color: var(--neutral-color-2);
+        background-color: transparent;        
+    }
+
+    .main-header .trailer-btn *{
+        color: var(--neutral-color-1);
+    }
+
+    .main-header .banner-controller *{
+        color: var(--neutral-color-2);
+    }
+
+    .main-header .banner-controller{
+        position: absolute;
+        top: calc(50vh - 1.5rem);
+        left: 0;
+        
+        height: 1.5rem;
+        width: 100%;
+
+        display: flex;
+        justify-content: center;
+        gap: 4vw;
+        
+    }
+
+    .main-header .banner-controller .banner-pick{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        
+        width: 7vw;
+        text-align: center;
+        color: transparent;
+    }
+    .banner-controller .banner-pick::before, .banner-controller .banner-pick.selected::before{
+        content: '';
+    
+        position: absolute;
+        right: initial;
+        left: 0;
+    
+        display: block;
+    
+        height: 3px;
+        width: 100%;
+        background-color: var(--neutral-color-1);
+        border-radius: 6px;
+    }
+
+    .banner-controller .banner-pick.selected::before{
+        background-color: var(--color-1);
+    }
+}
+@media (max-width: 425px) {
+    .main-header .synopsis-container{
+        height: 3.35rem;
     }
     
 }

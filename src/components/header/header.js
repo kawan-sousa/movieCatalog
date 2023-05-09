@@ -24,6 +24,7 @@ export default (movieList, IMAGE_URL)=>{
                     <p class="synopsis-text">
                         ${overview}
                     </p>
+                    <button class="view-controller">...mostrar mais</button>
                 </div>
 
                 <a href="https://${window.location.host}/movie?id=${id}" class="trailer-btn">
@@ -47,8 +48,23 @@ export default (movieList, IMAGE_URL)=>{
 
 
 export function setHeaderInteractivity(movieList){
-    
     setBannerControl()
+
+    setSynopsisViewControl()
+    
+    function setSynopsisViewControl(){
+        const $synopsisContainer = document.querySelector('.synopsis-container')
+        const $viewController = $synopsisContainer.querySelector('.synopsis-container .view-controller')
+        
+        $viewController.onclick = e=>{
+            $synopsisContainer.classList.toggle('show-more')
+            if($synopsisContainer.classList.contains('show-more')) $viewController.textContent = ' mostrar menos...'
+            else $viewController.textContent = '... mostrar mais'
+        }
+
+    }
+
+
     
     function setBannerControl(){
         const bannerPikerList= document.querySelectorAll('.banner-controller .banner-pick')

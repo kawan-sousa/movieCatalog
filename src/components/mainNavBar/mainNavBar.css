@@ -145,6 +145,13 @@
 }
 
 @media (max-width: 595px){
+    .main-nav-bar{
+        position: initial;
+        background-color: var(--neutral-color-2);
+        padding: 0 4vw;
+        height: 3rem;
+    }
+
     .main-nav-bar .search-bar.active{
         position: absolute;
         top: 0;
@@ -153,7 +160,7 @@
         /* background-color: var(--neutral-color-2); */
         width: 100%;
         border: none;
-        padding: 1rem .5rem 0 .5rem;
+        padding: .5rem .5rem 0 .5rem;
         z-index: 100;
     }
     
@@ -216,6 +223,9 @@
         border: none;
     }
 
+    .main-nav-bar .right-btns .login-btn{
+        display: none;
+    }
 
 }
 
