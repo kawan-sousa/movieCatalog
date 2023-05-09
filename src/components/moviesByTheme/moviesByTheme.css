@@ -119,6 +119,9 @@
 }
 
 @media (max-width: 656px){
+    .movies-by-theme .rail{
+        margin-top: .2rem;
+    }
     .movies-by-theme .rail-wppr{
         position: relative;
     }
@@ -154,9 +157,13 @@
     }
 }
 
-@media (max-width: 370px){
+@media (max-width: 425px){
     .movies-by-theme{
         padding: 0;
+    }
+
+    .movies-by-theme .theme{
+        font-size: 1.5rem;
     }
 
     .movies-by-theme .rail{

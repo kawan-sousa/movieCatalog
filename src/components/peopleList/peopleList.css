@@ -98,6 +98,10 @@
 }
 
 @media (max-width: 656px){
+    .peoples-section .rail{
+        margin-top: .2rem;
+    }
+
     .peoples-section .rail-wppr{
         position: relative;
     }
@@ -129,9 +133,13 @@
     }
 }
 
-@media (max-width: 370px){
+@media (max-width: 425px){
     .peoples-section{
         padding: 0;
+    }
+    
+    .peoples-section .list-title{
+        font-size: 1.5rem;
     }
 
     .peoples-section .rail{
