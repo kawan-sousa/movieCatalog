@@ -4,9 +4,9 @@ export default ()=>{
     nav.classList.add('main-nav-bar')
 
     nav.innerHTML = `
-        <a href="#" class="logo-link">
+        <a href="${window.location.protocol}//moviecatalog.kawandev.online" class="logo-link">
             <i>
-                <img src="./src/images/icons/tv.svg" alt="logo tv" class="logo-img">
+                <img src="https://moviecatalog.kawandev.online/src/images/icons/tv.svg" alt="logo tv" class="logo-img">
             </i>
             <span class="logo-name">Movie Box</span>
         </a>

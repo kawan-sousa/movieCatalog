@@ -1,0 +1,31 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'DM Sans', Arial, Helvetica, sans-serif;
+}
+:root{
+    --neutral-color-1: #ffffff;
+    --neutral-color-1_7: hsla(0, 0%, 100%, 0.7);
+
+    --neutral-color-2: #000000;
+    --neutral-color-2_5: hsla(0, 0%, 0%, 0.5);
+    --neutral-color-2_8: hsla(0, 0%, 0%, 0.8);
+
+    --neutral-color-3: #111827;
+    --neutral-color-3_4: #9CA3AF;
+    --neutral-color-3_5: #6B7280;
+
+
+    
+    --color-1: #BE123C;
+}
+a{
+    color: var(--neutral-color-1);
+    text-decoration: none;
+}
+
+main{
+    padding: 0 2vw;
+    width: 100%;
+}

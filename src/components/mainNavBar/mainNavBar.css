@@ -11,6 +11,12 @@
     padding: 1rem 7vw 0 7vw;
     z-index: 100;
 }
+.main-nav-bar.no-overlap{
+    position: static;
+}
+.main-nav-bar.no-overlap .logo-link .logo-name, .main-nav-bar.no-overlap .search-bar .search-bar-inpt, .main-nav-bar.no-overlap .search-bar .search-bar-inpt::placeholder, .main-nav-bar.no-overlap .right-btns .login-btn{
+    color: var(--neutral-color-2)
+}
 
 .main-nav-bar *{
     color: var(--neutral-color-1);
@@ -43,6 +49,9 @@
     display: flex;
     border: 2px solid var(--neutral-color-1);
     border-radius: 7px;
+}
+.main-nav-bar.no-overlap .search-bar{
+    border-color: var(--neutral-color-2);
 }
 
 .main-nav-bar .search-bar .search-bar-inpt{
