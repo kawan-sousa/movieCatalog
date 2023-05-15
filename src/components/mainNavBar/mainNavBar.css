@@ -14,12 +14,12 @@
 .main-nav-bar.no-overlap{
     position: static;
 }
-.main-nav-bar.no-overlap .logo-link .logo-name, .main-nav-bar.no-overlap .search-bar .search-bar-inpt, .main-nav-bar.no-overlap .search-bar .search-bar-inpt::placeholder, .main-nav-bar.no-overlap .right-btns .login-btn{
-    color: var(--neutral-color-2)
-}
 
 .main-nav-bar *{
     color: var(--neutral-color-1);
+}
+.main-nav-bar.no-overlap *{
+    color: var(--neutral-color-2);
 }
 
 .main-nav-bar .logo-link{
@@ -69,6 +69,9 @@
     font-size: 1rem;
     color: var(--neutral-color-1)
 }
+.main-nav-bar.no-overlap .search-bar-inpt::placeholder{
+    color: var(--neutral-color-2)
+}
 
 .main-nav-bar .search-bar .search-label{
     background-color: transparent;
@@ -81,6 +84,9 @@
 
     cursor: pointer;
     font-size: 1rem;
+}
+.main-nav-bar.no-overlap .search-bar .search-label i, .main-nav-bar.no-overlap .search-bar .search-request-bt i{
+    color: var(--neutral-color-2);
 }
 .main-nav-bar .search-bar .search-label.hidden{
     display: none;
@@ -161,6 +167,10 @@
         height: 3rem;
     }
 
+    .main-nav-bar .logo-link .logo-name{
+        color: var(--neutral-color-1);
+    }
+
     .main-nav-bar .search-bar.active{
         position: absolute;
         top: 0;
@@ -234,6 +244,13 @@
 
     .main-nav-bar .right-btns .login-btn{
         display: none;
+    }
+
+    .main-nav-bar.no-overlap .search-bar .search-label i{
+        color: var(--neutral-color-1);
+    }
+    .main-nav-bar.no-overlap .search-bar.active .search-label i{
+        color: var(--neutral-color-2);
     }
 
 }
