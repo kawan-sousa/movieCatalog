@@ -5,16 +5,24 @@ export default async (movieList, theme, IMAGE_URL_P)=>{
     $moviesByTheme.classList.add('movies-by-theme')
     newMovieList.length = 20
 
+
+    newMovieList.sort((next, current)=>{ // sort the list of movies in ascending order according to the year of release
+        const currentMovieReleaseDate = new Date(current.release_date).getFullYear()
+        const nextMovieReleaseDate = new Date(next.release_date).getFullYear()
+
+        return currentMovieReleaseDate - nextMovieReleaseDate
+    })
+
     $moviesByTheme.innerHTML= `
     <h3 class="theme">${theme}</h3>
     
     <div class="rail-wppr">
         <div class="controller">
             <button class="backwards">
-                <img src="src/images/icons/arrowRight.svg" alt="">
+                <img src="src/images/icons/arrowRight.svg"  srcset="../../images/icons/arrowRight.svggit" alt="">
             </button>
             <button class="forwards">
-                <img src="src/images/icons/arrowRight.svg" alt="">
+                <img src="src/images/icons/arrowRight.svg"  srcset="../../images/icons/arrowRight.svggit" alt="">
             </button>
         </div>
         <div class="rail">
@@ -36,16 +44,17 @@ export default async (movieList, theme, IMAGE_URL_P)=>{
                         <span class="movie-datas">
                                 <div class="release-date">${release_date}</div>
                     
-                                <h4 class="movie-title">${title}</h4>
+                                <h4 class="movie-title">${title || movie.name}</h4>
             
                                 <div class="reviews">
                                     <div class="IMDb-review">
-                                        <i class="IMDb-icon"><img src="./src/images/icons/TMDb.svg" alt="TMDb logo"></i>
+                                        <i class="IMDb-icon">
+                                            <img src="./src/images/icons/TMDb.svg" srcset="../../images/icons/TMDb.svg" alt="TMDb logo"></i>
                                         <span class="IMDb-result"><span class="real-result">${vote_average}</span> / 100</span>
                                     </div>
                                 </div>
                                 
-                                <span class="generes">${genreNames.join(', ')
+                                <span class="generes">${genreNames?.join(', ') || ''
                                 }</span>
                         </span>
                             </li>`
@@ -62,10 +71,17 @@ export default async (movieList, theme, IMAGE_URL_P)=>{
     async function getGenres(movieID){
         const URL_DETAILS = "https://api.themoviedb.org/3/movie"
         const API_KEY= 'd1c96093b22eb879b6858f590e7686a0'
+        const userLanguage = navigator.language || navigator.userLanguage
 
-        const details = await fetch(`${URL_DETAILS}/${movieID}?api_key=${API_KEY}&language=en-US`).then(response => response.json()).catch(error => console.error('it was not possible to obtain the details of the film in question, in the list:'+error))
-        
-        const genres = details.genres.map(genre => genre.name)
+        const details = await fetch(`${URL_DETAILS}/${movieID}?api_key=${API_KEY}&language=${userLanguage}`)
+            .then(response => {
+                if (response.status == 404) throw new Error('404 (not found)')
+                return response.json()
+            }).catch(error => 
+                    console.error(`it was not possible to obtain the details of the film in question, in the list:${error}`))
+
+            console.log(details)
+        const genres = details?.genres?.map(genre => genre.name) || undefined
         return genres
     }
     
@@ -127,6 +143,16 @@ export default async (movieList, theme, IMAGE_URL_P)=>{
         window.addEventListener('resize', e=>{
             movieList.style.marginLeft = `0px`
             currentMarginLeft = 0
+        })
+
+        const movieImages = $moviesByTheme.querySelectorAll('.movie .cover-wppr img')
+
+        movieImages.forEach((img)=>{
+            img.onerror = ()=>{
+                const movie = img.closest('.movie')
+                
+                movie.remove()
+            }
         })
     }
     
