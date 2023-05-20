@@ -19,10 +19,10 @@ export default async (movieList, theme, IMAGE_URL_P)=>{
     <div class="rail-wppr">
         <div class="controller">
             <button class="backwards">
-                <img src="src/images/icons/arrowRight.svg"  srcset="../../images/icons/arrowRight.svggit" alt="">
+                <img src="https://moviecatalog.kawandev.online/src/images/icons/arrowRight.svg" alt="">
             </button>
             <button class="forwards">
-                <img src="src/images/icons/arrowRight.svg"  srcset="../../images/icons/arrowRight.svggit" alt="">
+                <img src="https://moviecatalog.kawandev.online/src/images/icons/arrowRight.svg" alt="">
             </button>
         </div>
         <div class="rail">
@@ -49,7 +49,7 @@ export default async (movieList, theme, IMAGE_URL_P)=>{
                                 <div class="reviews">
                                     <div class="IMDb-review">
                                         <i class="IMDb-icon">
-                                            <img src="./src/images/icons/TMDb.svg" srcset="../../images/icons/TMDb.svg" alt="TMDb logo"></i>
+                                            <img src="https://moviecatalog.kawandev.online/./src/images/icons/TMDb.svg" alt="TMDb logo"></i>
                                         <span class="IMDb-result"><span class="real-result">${vote_average}</span> / 100</span>
                                     </div>
                                 </div>
