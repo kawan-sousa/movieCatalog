@@ -42,7 +42,7 @@ export default async (movieList, theme, IMAGE_URL_P)=>{
                         </a>
 
                         <span class="movie-datas">
-                                <div class="release-date">${release_date}</div>
+                                <div class="release-date">${release_date || movie.first_air_date}</div>
                     
                                 <h4 class="movie-title">${title || movie.name}</h4>
             
@@ -80,7 +80,6 @@ export default async (movieList, theme, IMAGE_URL_P)=>{
             }).catch(error => 
                     console.error(`it was not possible to obtain the details of the film in question, in the list:${error}`))
 
-            console.log(details)
         const genres = details?.genres?.map(genre => genre.name) || undefined
         return genres
     }

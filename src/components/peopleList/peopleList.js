@@ -1,20 +1,20 @@
 export default async (peopleList, listTitle, IMAGE_URL_P)=>{
-    const $moviesByTheme = document.createElement('section')
+    const $peopleLst = document.createElement('section')
     const newPeopleList = [...peopleList]
     newPeopleList.length = 20
     
-    $moviesByTheme.classList.add('peoples-section')
+    $peopleLst.classList.add('peoples-section')
 
-    $moviesByTheme.innerHTML= `
+    $peopleLst.innerHTML= `
     <h3 class="list-title">${listTitle}</h3>
     
     <div class="rail-wppr">
         <div class="controller">
             <button class="backwards">
-                <img src="src/images/icons/arrowRight.svg" alt="">
+                <img src="https://moviecatalog.kawandev.online/src/images/icons/arrowRight.svg" alt="">
             </button>
             <button class="forwards">
-                <img src="src/images/icons/arrowRight.svg" alt="">
+                <img src="https://moviecatalog.kawandev.online/src/images/icons/arrowRight.svg" alt="">
             </button>
         </div>
         <div class="rail">
@@ -43,10 +43,10 @@ export default async (peopleList, listTitle, IMAGE_URL_P)=>{
 
     setInteractivity()
     
-    return $moviesByTheme
+    return $peopleLst
 
     function setInteractivity(){
-        const $controlBtnLst = $moviesByTheme.querySelectorAll('.controller button')
+        const $controlBtnLst = $peopleLst.querySelectorAll('.controller button')
         const railWppr = $controlBtnLst[0].closest('.rail-wppr')
         const $rail = railWppr.querySelector('.rail')
         const $peopleList = $rail.querySelector('.people-list')
@@ -103,6 +103,16 @@ export default async (peopleList, listTitle, IMAGE_URL_P)=>{
         window.addEventListener('resize', ()=>{
             $peopleList.style.marginLeft = `0px`
             currentMarginLeft = 0
+        })
+
+        const peoplesProfiles = $peopleLst.querySelectorAll('.people .people-link .profile')
+
+        peoplesProfiles.forEach((img)=>{
+            img.onerror = ()=>{
+                const movie = img.closest('.people')
+                
+                movie.remove()
+            }
         })
     }
 }
