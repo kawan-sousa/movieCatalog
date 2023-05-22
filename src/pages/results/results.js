@@ -1,6 +1,8 @@
 import mainNavBar from "../../components/mainNavBar/mainNavBar.js"
 import getMoviesByTheme from '../../components/moviesByTheme/moviesByTheme.js';
 import getPeopleList from '../../components/peopleList/peopleList.js'
+import getFooter from '../../components/footer/footer.js'
+import footer from "../../components/footer/footer.js";
 
 const URL_Search = new URLSearchParams(window.location.search)
 const query = URL_Search.get('query')
@@ -21,6 +23,9 @@ async function pageGenerator(){
     const featuredMovies = await getTMDB_List(`${API_URL}/3/trending/movie/day?api_key=${API_KEY}&language=${lang}`)
     const featuredSeries = await getTMDB_List(`${API_URL}/3/trending/tv/week?api_key=${API_KEY}&language=${lang}`)
     const featuredPeoples = await getTMDB_List(`${API_URL}/3/trending/person/week?api_key=${API_KEY}&language=${lang}`)
+    const movieRelises = await getTMDB_List(`${API_URL}/3/discover/movie?api_key=${API_KEY}&language=${lang}`)
+    const seriesMostAcclaimeds = await getTMDB_List(`${API_URL}/3/tv/top_rated?api_key=${API_KEY}&include_adult=false&language=${lang}&page=1`)
+    const $footer = await getFooter()
     
 
     setHeader()
@@ -33,9 +38,13 @@ async function pageGenerator(){
         featuredMovies: featuredMovies,
         featuredSeries: featuredSeries,
         featuredPeoples: featuredPeoples,
+        movieRelises: movieRelises,
+        seriesMostAcclaimeds: seriesMostAcclaimeds,
     }
 
     await setMain(dataContentList)
+    
+    setFooter($footer)
 }
 
 function setHeader(){
@@ -63,7 +72,7 @@ async function setMain(dataContentList){
     }
 
     if(dataContentList.resultingSerieList.length){
-        const $serieResults = await getMoviesByTheme(dataContentList.resultingSerieList, 'Series Recomendadas', IMAGE_URL_P)
+        const $serieResults = await getMoviesByTheme(dataContentList.resultingSerieList, 'Séries Recomendadas', IMAGE_URL_P)
         $main.appendChild($serieResults)
     }
 
@@ -79,7 +88,7 @@ async function setMain(dataContentList){
     }
 
     if(dataContentList.featuredSeries.length){
-        const $featuredMovies = await getMoviesByTheme(dataContentList.featuredSeries, 'Series em Alta', IMAGE_URL_P)
+        const $featuredMovies = await getMoviesByTheme(dataContentList.featuredSeries, 'Séries em Alta', IMAGE_URL_P)
         $main.appendChild($featuredMovies)
     }
 
@@ -87,17 +96,21 @@ async function setMain(dataContentList){
         const $featuredPeoples = await getPeopleList(dataContentList.featuredPeoples, 'Pessoas em Alta', IMAGE_URL_P)
         $main.appendChild($featuredPeoples)
     }
+
+    if(dataContentList.movieRelises.length){
+        const $movieRelises = await getMoviesByTheme(dataContentList.movieRelises, 'Lançamento de Filmes', IMAGE_URL_P)
+        $main.appendChild($movieRelises)
+    }
+
+    if(dataContentList.seriesMostAcclaimeds.length){
+        const $seriesMostAcclaimeds = await getMoviesByTheme(dataContentList.seriesMostAcclaimeds, 'Séries mais aclamadas', IMAGE_URL_P)
+        $main.appendChild($seriesMostAcclaimeds)
+    }
 }
 
-async function getMulti(){
-    const lang= navigator.language || navigator.userLanguage
+function setFooter($footer){
     
-    const multiMovieURL= `${API_URL}/3/search/multi?api_key=${API_KEY}&language=${lang}&page=1&include_adult=false&query=${query}`
-    
-    const response= await fetch(multiMovieURL).then(response => response.json()).catch(error => console.error(`Unable to get featured movies data : ${error}`))
-    
-    const movieList= response.results
-    return movieList
+    $body.appendChild($footer)
 }
 
 async function getTMDB_List(URL){
