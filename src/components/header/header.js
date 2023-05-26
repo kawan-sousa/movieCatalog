@@ -27,7 +27,7 @@ export default (movieList, IMAGE_URL)=>{
                     <button class="view-controller">...mostrar mais</button>
                 </div>
 
-                <a href="https://${window.location.host}/movie?id=${id}" class="trailer-btn">
+                <a href="${location.origin}/src/pages/movie/movie.html?id=${id}" class="trailer-btn">
                     <i class="fa-solid fa-circle-play"></i>
                     <span class="button-text-content">ver mais</span>
                 </a>
@@ -119,7 +119,7 @@ export function setHeaderInteractivity(movieList){
         }
         
         function toggleBanner(bannerContent){
-            const { title, vote_average, overview, backdrop_path} = bannerContent
+            const { title, vote_average, overview, backdrop_path, id} = bannerContent
             const backdropPath = IMAGE_URL+backdrop_path
             
             $mainHeader.querySelector('.banner-image').src = backdropPath
@@ -127,6 +127,7 @@ export function setHeaderInteractivity(movieList){
             $mainHeader.querySelector('.title').textContent = title
             $mainHeader.querySelector('.IMDb-result .real-result').textContent = vote_average
             $mainHeader.querySelector('.synopsis-text').textContent = overview
+            $mainHeader.querySelector('.trailer-btn').href = `${location.origin}/src/pages/movie/movie.html?id=${id}`
         }
 }
 }

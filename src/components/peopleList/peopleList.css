@@ -63,10 +63,6 @@
     color: var(--neutral-color-2)
 }
 
-
-.peoples-section .people-list .people{
-    cursor: pointer;
-}
 .peoples-section .people-list .people .profile-wppr{
     display: block;
     width: 100%;

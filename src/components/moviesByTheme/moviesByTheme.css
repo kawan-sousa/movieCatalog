@@ -64,10 +64,6 @@
     color: var(--neutral-color-2);
 }
 
-.movies-by-theme .movie-list .movie{
-    cursor: pointer;
-}
-
 .movies-by-theme .movie-list .cover-wppr{
     display: block;
     width: 100%;

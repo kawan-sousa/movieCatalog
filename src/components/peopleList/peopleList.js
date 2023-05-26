@@ -21,11 +21,11 @@ export default async (peopleList, listTitle, IMAGE_URL_P)=>{
             <ul class="people-list">
             ${
                 newPeopleList.map((people)=>{
-                    const { profile_path, name} = people
+                    const { profile_path, name, id} = people
 
                     const HTMLContent = `
                     <li class="people">
-                        <a href="#" class="people-link">
+                        <a href="${location.origin}/src/pages/people/people.html?id=${id}" class="people-link">
                             <picture class="profile-wppr">
                                         <img src="${IMAGE_URL_P+profile_path}" alt="" srcset="" class="profile">
                             </picture>

@@ -12,7 +12,7 @@ export default async (movieList, theme, IMAGE_URL_P)=>{
 
         return currentMovieReleaseDate - nextMovieReleaseDate
     })
-
+    
     $moviesByTheme.innerHTML= `
     <h3 class="theme">${theme}</h3>
     
@@ -35,7 +35,7 @@ export default async (movieList, theme, IMAGE_URL_P)=>{
 
                         const HTMLContent = `
                         <li class="movie">
-                        <a href="#" class="movie-link">
+                        <a href="${location.origin}/src/pages/movie/movie.html?id=${id}" class="movie-link">
                             <picture class="cover-wppr">
                                         <img src="${IMAGE_URL_P+poster_path}" alt="" srcset="" class="cover">
                             </picture>
