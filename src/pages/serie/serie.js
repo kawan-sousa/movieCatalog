@@ -1,13 +1,13 @@
 import getMainNavBar from '../../components/mainNavBar/mainNavBar.js'
 import getBackdrop from '../../components/backdrop/backdrop.js'
-import getMovieDadasSection from '../../components/movieDatas/movieDatas.js'
 import getMoviesByTheme from '../../components/moviesByTheme/moviesByTheme.js'
+import getSerieDatasSection from '../../components/serieDatas/serieDatas.js'
 import getPeopleList from '../../components/peopleList/peopleList.js'
 import getFooter from '../../components/footer/footer.js'
 
 
 const URL_Search = new URLSearchParams(location.search)
-const movieID = URL_Search.get('id')
+const serieID = URL_Search.get('id')
 const API_URL= 'https://api.themoviedb.org'
 const IMAGE_URL= 'https://image.tmdb.org/t/p/w1280'
 const IMAGE_URL_P= 'https://image.tmdb.org/t/p/w300'
@@ -18,8 +18,8 @@ const lang= navigator.language || navigator.userLanguage
 pageGenerator()
 
 async function pageGenerator(){
-    const movieDetails = await getTMDB_List(`${API_URL}/3/movie/${movieID}?api_key=${API_KEY}&language=${lang}`)
-    const creditsList = await getTMDB_List(`${API_URL}/3/movie/${movieID}/credits?api_key=${API_KEY}&language=${lang}`)
+    const serieDetails = await getTMDB_List(`${API_URL}/3/tv/${serieID}?api_key=${API_KEY}&language=${lang}`)
+    const creditList = await getTMDB_List(`${API_URL}/3/tv/${serieID}/credits?api_key=${API_KEY}&language=${lang}`)
     const featuredMovies = await getTMDB_List(`${API_URL}/3/trending/movie/day?api_key=${API_KEY}&language=${lang}`)
     const featuredSeries = await getTMDB_List(`${API_URL}/3/trending/tv/week?api_key=${API_KEY}&language=${lang}`)
     const featuredPeoples = await getTMDB_List(`${API_URL}/3/trending/person/week?api_key=${API_KEY}&language=${lang}`)
@@ -27,8 +27,8 @@ async function pageGenerator(){
     const seriesMostAcclaimeds = await getTMDB_List(`${API_URL}/3/tv/top_rated?api_key=${API_KEY}&include_adult=false&language=${lang}&page=1`)
 
     const dataContentList = {
-        movieDetails: movieDetails,
-        creditsList: creditsList,
+        serieDetails: serieDetails,
+        creditList: creditList,
         featuredMovies: featuredMovies,
         featuredSeries: featuredSeries,
         featuredPeoples: featuredPeoples,
@@ -36,29 +36,30 @@ async function pageGenerator(){
         seriesMostAcclaimeds: seriesMostAcclaimeds,
     }
 
-    setPageTitle(movieDetails.title)
+    setPageTitle(serieDetails.title)
 
 
-    await setHeader(movieDetails)
+    await setHeader(serieDetails)
     await setMain(dataContentList)
     await setFooter()
 }
 
 async function getTMDB_List(URL){
+    console.log(URL)
     const response= await fetch(URL).then(response => response.json()).catch(error => console.error(`Unable to get TMDb datas : ${error}`))
     
-    const movieList= response.results || response
-    return movieList
+    const serieList= response.results || response
+    return serieList
 }
 
 function setPageTitle(title){
     document.title = title
 }
 
-async function setHeader(movieDetails){
+async function setHeader(serieDetails){
     const $header = document.createElement('header')
     const $navBar = getMainNavBar()
-    const $backdrop = await getBackdrop(IMAGE_URL, movieDetails.backdrop_path)
+    const $backdrop = await getBackdrop(IMAGE_URL, serieDetails.backdrop_path)
 
     $header.appendChild($navBar)
     $header.appendChild($backdrop)
@@ -66,39 +67,39 @@ async function setHeader(movieDetails){
 }
 
 async function setMain(dataContentList){
-    const $movieDatas = await getMovieDadasSection(dataContentList.movieDetails, dataContentList.creditsList)
+    const $serieDatas = await getSerieDatasSection(dataContentList.serieDetails, dataContentList.creditList)
     const $main = document.createElement('main')
 
     $main.classList.add('main')
     $body.appendChild($main)
 
-    $main.appendChild($movieDatas)
+    $main.appendChild($serieDatas)
     
 
-    if(dataContentList.featuredMovies.length){
-        const $featuredMovies = await getMoviesByTheme(dataContentList.featuredMovies, 'Filmes em Alta', IMAGE_URL_P)
-        $main.appendChild($featuredMovies)
-    }
+    // if(dataContentList.featuredMovies.length){
+    //     const $featuredMovies = await getMoviesByTheme(dataContentList.featuredMovies, 'Filmes em Alta', IMAGE_URL_P)
+    //     $main.appendChild($featuredMovies)
+    // }
 
-    if(dataContentList.featuredSeries.length){
-        const $featuredMovies = await getMoviesByTheme(dataContentList.featuredSeries, 'Séries em Alta', IMAGE_URL_P)
-        $main.appendChild($featuredMovies)
-    }
+    // if(dataContentList.featuredSeries.length){
+    //     const $featuredMovies = await getMoviesByTheme(dataContentList.featuredSeries, 'Séries em Alta', IMAGE_URL_P)
+    //     $main.appendChild($featuredMovies)
+    // }
 
-    if(dataContentList.featuredPeoples.length){
-        const $featuredPeoples = await getPeopleList(dataContentList.featuredPeoples, 'Pessoas em Alta', IMAGE_URL_P)
-        $main.appendChild($featuredPeoples)
-    }
+    // if(dataContentList.featuredPeoples.length){
+    //     const $featuredPeoples = await getPeopleList(dataContentList.featuredPeoples, 'Pessoas em Alta', IMAGE_URL_P)
+    //     $main.appendChild($featuredPeoples)
+    // }
 
-    if(dataContentList.movieRelises.length){
-        const $movieRelises = await getMoviesByTheme(dataContentList.movieRelises, 'Lançamento de Filmes', IMAGE_URL_P)
-        $main.appendChild($movieRelises)
-    }
+    // if(dataContentList.movieRelises.length){
+    //     const $movieRelises = await getMoviesByTheme(dataContentList.movieRelises, 'Lançamento de Filmes', IMAGE_URL_P)
+    //     $main.appendChild($movieRelises)
+    // }
 
-    if(dataContentList.seriesMostAcclaimeds.length){
-        const $seriesMostAcclaimeds = await getMoviesByTheme(dataContentList.seriesMostAcclaimeds, 'Séries mais aclamadas', IMAGE_URL_P)
-        $main.appendChild($seriesMostAcclaimeds)
-    }
+    // if(dataContentList.seriesMostAcclaimeds.length){
+    //     const $seriesMostAcclaimeds = await getMoviesByTheme(dataContentList.seriesMostAcclaimeds, 'Séries mais aclamadas', IMAGE_URL_P)
+    //     $main.appendChild($seriesMostAcclaimeds)
+    // }
 }
 
 function setFooter(){

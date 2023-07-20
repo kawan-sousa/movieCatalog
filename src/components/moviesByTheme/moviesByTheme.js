@@ -35,7 +35,7 @@ export default async (movieList, theme, IMAGE_URL_P)=>{
 
                         const HTMLContent = `
                         <li class="movie">
-                        <a href="${location.origin}/src/pages/movie/movie.html?id=${id}" class="movie-link">
+                        <a href="${location.origin}/src/pages/${movieList?.media_type == "tv" ||  movie?.media_type == "tv" ? "serie/serie.html" : "movie/movie.html"}?id=${id}" class="movie-link">
                             <picture class="cover-wppr">
                                         <img src="${IMAGE_URL_P+poster_path}" alt="" srcset="" class="cover">
                             </picture>

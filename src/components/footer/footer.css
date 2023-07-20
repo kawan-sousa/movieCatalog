@@ -8,8 +8,12 @@
     padding-bottom: 3rem;
 }
 
-.main-footer .contact-options a:not(:last-of-type){
-    margin-right: 2rem;
+
+.main-footer .contact-options{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
 }
 
 .main-footer .contact-options a i{
@@ -17,13 +21,19 @@
     color: var(--neutral-color-3);
 }
 
+.main-footer .terms-and-conditions{
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
 .main-footer .terms-and-conditions a{
     color: var(--neutral-color-3);
     font-weight: bold;
     font-size: 1rem;
-}
-.main-footer .terms-and-conditions a:not(:last-of-type){
-    margin-right: 2rem
+    white-space: nowrap;
+    margin: 0;
 }
 
 .main-footer .authors a{

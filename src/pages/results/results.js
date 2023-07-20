@@ -26,6 +26,10 @@ async function pageGenerator(){
     const movieRelises = await getTMDB_List(`${API_URL}/3/discover/movie?api_key=${API_KEY}&language=${lang}`)
     const seriesMostAcclaimeds = await getTMDB_List(`${API_URL}/3/tv/top_rated?api_key=${API_KEY}&include_adult=false&language=${lang}&page=1`)
     const $footer = await getFooter()
+
+    setMediaTypeHowTV(featuredSeries)
+    setMediaTypeHowTV(seriesMostAcclaimeds)
+    console.log(resultingMultiList)
     
 
     setHeader()
@@ -118,4 +122,9 @@ async function getTMDB_List(URL){
     
     const movieList= response.results
     return movieList
+}
+
+function setMediaTypeHowTV(serieList){
+    serieList.media_type = "tv"
+    return serieList
 }

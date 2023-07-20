@@ -36,10 +36,6 @@ async function pageGenerator(){
 $body.appendChild(mainNavBar())
 
 async function setHeader(movieList){
-    
-    
-    
-    
     if(!movieList.length) return
     
     await $body.appendChild(header(movieList[0], IMAGE_URL))
@@ -98,4 +94,9 @@ async function getFeaturedActors(){
     
     const actorsList= response.results
     return actorsList
+}
+
+function setMediaTypeHowTV(serieList){
+    serieList.media_type = "tv"
+    return serieList
 }
